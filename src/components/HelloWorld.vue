@@ -46,7 +46,7 @@ export default {
 /* Header should be at the top */
 header {
   flex-shrink: 0;
-  padding: 20px;
+  padding: 10px;
   background-color: #f0f0f0;
   border-bottom: 1px solid #ccc;
 }
