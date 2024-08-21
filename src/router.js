@@ -1,8 +1,9 @@
 // src/router.js
 import { createRouter, createWebHistory } from 'vue-router';  // Correct import from 'vue-router'
-import BudgetHome from './components/BudgetHome.vue';        // Adjust the path if necessary
-import BudgetResults from './components/BudgetResults.vue';
-import AboutUs from './components/AboutUs.vue';// Adjust the path if necessary
+import BudgetHome from './components/UserCart.vue';        // Adjust the path if necessary
+import BudgetResults from './components/LoginPage.vue';
+import AboutUs from './components/ExplorePage.vue';// Adjust the path if necessary
+
 
 const routes = [
   { path: '/home', name: 'BudgetHome', component: BudgetHome },
