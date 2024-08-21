@@ -12,9 +12,10 @@
       </div>
       <button type="submit">Login</button>
     </form>
+    <p v-if="message" :class="{'error-message': isError}">{{ message }}</p>
     <div class="register-container">
       <p>Are you not a member?</p>
-      <button><router-link to="/signupPage" class="no-underline text-black">Register </router-link></button>
+      <button><router-link to="/signup" class="no-underline text-black">Register</router-link></button>
     </div>
   </div>
 </template>
@@ -24,11 +25,18 @@ import axios from 'axios';
 
 export default {
   name: 'LoginPage',
-  
+  props: {
+    msg: {
+      type: String,
+      default: 'Welcome to Zemo!'
+    }
+  },
   data() {
     return {
       username: '',
-      password: ''
+      password: '',
+      message: '',
+      isError: false
     };
   },
   methods: {
@@ -36,23 +44,65 @@ export default {
       try {
         // Send POST request to Laravel API
         const response = await axios.post('http://localhost:8000/api/login', {
-          email: this.username,
+          username: this.username,
           password: this.password
         });
 
         // Handle successful login response
-        console.log('Login successful:', response.data);
+        this.message = response.data.message;
+        this.isError = false;
 
-        // You can redirect to another page or store the token here home page
-       this.$router.push('/');
+        // Redirect to the homepage or another page
+        this.$router.push('/');
       } catch (error) {
         // Handle login error
-        console.error('Login failed:', error.response ? error.response.data : error.message);
-
-        // Optionally show an error message to the user
-        alert('Login failed. Please check your credentials and try again.');
+        this.message = error.response ? error.response.data.message : error.message;
+        this.isError = true;
       }
     }
   }
 }
 </script>
+
+
+<style scoped>
+.login-container {
+  max-width: 300px;
+  margin: 50px auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  text-align: center;
+}
+.form-group {
+  margin-bottom: 15px;
+}
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+}
+.form-group input {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+}
+button {
+  padding: 10px 20px;
+  background-color: #2aa8df;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+button:hover {
+  background-color: #1935ec;
+}
+button:active{
+  background-color: #5b1ed6;
+}
+
+.register-container {
+  margin-top: 20px;
+}
+</style>

@@ -1,14 +1,19 @@
 // src/router.js
-import { createRouter, createWebHistory } from 'vue-router';  // Correct import from 'vue-router'
-import BudgetHome from './components/UserCart.vue';        // Adjust the path if necessary
-import BudgetResults from './components/LoginPage.vue';
-import AboutUs from './components/ExplorePage.vue';// Adjust the path if necessary
+import { createRouter, createWebHistory } from 'vue-router';
+import ExplorePage from './components/ExplorePage.vue';
+import HelloWorld from './components/HelloWorld.vue';
+import LoginPage from './components/LoginPage.vue';
+import SignUp from './components/SignUp.vue';
+import UserCart from './components/UserCart.vue';// Correct import from 'vue-router'
 
 
 const routes = [
-  { path: '/home', name: 'BudgetHome', component: BudgetHome },
-  { path: '/results', name: 'BudgetResults', component: BudgetResults, props: true },
-  { path: '/aboutus', name: 'AboutUs', component: AboutUs, props: true }
+  { path: '/', name: 'HelloWorld', component: HelloWorld},  // Redirect root path to login
+  { path: '/explorepage', name: 'ExplorePage', component: ExplorePage, props: true },
+  { path: '/login', name: 'LoginPage', component: LoginPage, props: true },
+  { path: '/signup', name: 'SignUp', component: SignUp, props: true },
+  { path: '/usercart', name: 'UserCart', component: UserCart, props: true },
+  { path: '/:catchAll(.*)', redirect: '/' }  // Catch-all for undefined routes
 ];
 
 const router = createRouter({

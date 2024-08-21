@@ -41,15 +41,15 @@ export default {
     return {
       searchQuery: '',
       items: [
-      //   { id: 1, image: require('../assets/Belt.png'), name: 'Ladies Belt', price: 4.99, description: 'This is a ladies belt for pants and skirts made from leather' },
-      //   { id: 2, image: require('../assets/Gold necklaces.png'), name: 'Gold Necklace', price: 9.99, description: 'This is a gold necklace.' },
-      //   { id: 3, image: require('../assets/Handbag.png'), name: 'Handbag', price: 24.99, description: 'This is a leather handbag.' },
-      //   { id: 4, image: require('../assets/Jacket.png'), name: 'Jacket', price: 34.99, description: 'This is a stylish jacket.' },
-      //   { id: 5, image: require('../assets/Skirt.png'), name: 'Skirt', price: 19.99, description: 'This is a designer skirt.' },
-      //   { id: 6, image: require('../assets/Blouses.png'), name: 'Blouse', price: 14.99, description: 'This is a casual blouse.' },
-      //   { id: 7, image: require('../assets/Palazzo pants.png'), name: 'Palazzo Pants', price: 29.99, description: 'These are palazzo pants.' },
-      //  // { id: 8, image: require('../assets/Gemstone earrings.png'), name: 'Gemstone Earrings', price: 49.99, description: 'These are gemstone earrings.' },
-      //   { id: 8, image: require('../assets/Sundress.png'), name: 'A sundress', price: 49.99, description: 'This is a blue sundress' },
+      { id: 1, image: require('../assets/Belt.png'), name: 'Ladies Belt', price: 4.99, description: 'This is a ladies belt for pants and skirts made from leather' },
+      { id: 2, image: require('../assets/Gold necklaces.png'), name: 'Gold Necklace', price: 9.99, description: 'This is a gold necklace.' },
+      { id: 3, image: require('../assets/Handbag.png'), name: 'Handbag', price: 24.99, description: 'This is a leather handbag.' },
+      { id: 4, image: require('../assets/Jacket.png'), name: 'Jacket', price: 34.99, description: 'This is a stylish jacket.' },
+      { id: 5, image: require('../assets/Skirt.png'), name: 'Skirt', price: 19.99, description: 'This is a designer skirt.' },
+      { id: 6, image: require('../assets/Blouses.png'), name: 'Blouse', price: 14.99, description: 'This is a casual blouse.' },
+      { id: 7, image: require('../assets/Palazzo pants.png'), name: 'Palazzo Pants', price: 29.99, description: 'These are palazzo pants.' },
+      { id: 8, image: require('../assets/Gemstone earrings.png'), name: 'Gemstone Earrings', price: 49.99, description: 'These are gemstone earrings.' },
+      { id: 8, image: require('../assets/Sundress.png'), name: 'A sundress', price: 49.99, description: 'This is a blue sundress' },
        ]
     };
   },
@@ -95,10 +95,11 @@ export default {
 }
 
 .card-img-top {
-  width: 100%;
-  height: 150px;
-  object-fit: cover;
+  width: 100%;  /* Make the image take up the full width of the container */
+  height: 50%;  /* Maintain the aspect ratio */
+  object-fit: contain;  /* Ensures the entire image is displayed inside the container */
 }
+
 
 .card-body {
   padding: 10px;
