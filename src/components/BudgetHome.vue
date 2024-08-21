@@ -1,0 +1,96 @@
+<template>
+  <div>
+    <h1>Marketing Budget Form</h1>
+    <form @submit.prevent="distributeFunds"></form>
+      <div>
+        <label>Target clicks: </label>
+        <input type="number" v-model="targetClicks" placeholder="Enter your target number of leads">
+      </div>
+      <div>
+        <label>Budget: </label>
+        <input type="number" v-model="budget" placeholder="Enter your budget in Ksh.">
+      </div>
+      <button type="button" @click="distributeFunds">Distribute Funds</button>
+      <div v-if="allocation">
+        <h2>Allocation Results:</h2>
+        <p>Facebook: {{ allocation.facebook }}</p>
+        <p>LinkedIn: {{ allocation.linkedin }}</p>
+        <p>Instagram: {{ allocation.instagram }}</p>
+        <p>WhatsApp: {{ allocation.whatsapp }}</p>
+      </div>
+      <div v-if="errorMessage">
+      <p style="color: red">{{ errorMessage }}</p>
+    </div>
+  </div>
+</template>
+
+<script>
+
+export default {
+  data() {
+    return {
+      targetClicks: '',
+      budget: '',
+      allocation: null,
+      errorMessage: ''
+    };
+  },
+  methods: {
+    async distributeFunds() {
+      const targetClicks = parseInt(this.targetClicks);
+      const budget = parseFloat(this.budget);
+
+      if (!this.targetClicks || !this.budget) {
+        this.errorMessage = "Please type in your target clicks or budget...";
+        return;
+      }
+      
+      if (isNaN(targetClicks) || targetClicks <= 0) {
+        this.errorMessage = "Invalid target clicks, enter positive numbers.";
+        return;
+      }
+      
+      if (isNaN(budget) || budget < 0) {
+        this.errorMessage = "Invalid budget, enter a valid amount of money.";
+        return;
+      }
+
+      this.errorMessage = '';
+
+      try {
+  const response = await fetch('http://127.0.0.1:5000/calculate_allocation', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      target_clicks: targetClicks,
+      total_budget: budget
+    }),
+  });
+
+  if (response.ok) {
+    const data = await response.json();
+    console.log('API Response:', data); // Debugging line
+    if (data.budget_allocation) {
+      this.$router.push({ name: 'BudgetResults', params: { allocation: data.budget_allocation } });
+    } else {
+      this.errorMessage = 'No allocation data available.';
+    }
+  } else {
+    throw new Error('Failed to fetch');
+  }
+} catch (error) {
+  console.error('Error distributing funds:', error);
+  this.errorMessage = 'Error distributing funds, please try again later.';
+}
+
+    }
+  }
+};
+
+</script>
+
+<style scoped>
+/* Add any necessary styles here */
+</style>
